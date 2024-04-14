@@ -1,3 +1,4 @@
+import { Background } from "./background.js";
 import { Player } from "./player.js";
 
 export class Game {
@@ -17,9 +18,12 @@ export class Game {
     this.baseHeight = 720; /** which is default height of our game */
     this.ratio = this.height / this.baseHeight; /** for example (720/1000) */
 
+    /** @type {Background} */
+    this.background = new Background(this);
     /** @type {Player} */
     this.player = new Player(this);
     this.gravity;
+    this.speed; // speed of the game background changing
 
     // initinal resize with currenct window height and width
     this.resize(window.innerWidth, window.innerHeight);
@@ -27,7 +31,16 @@ export class Game {
     window.addEventListener("resize", (e) => {
       this.resize(e.currentTarget.innerWidth, e.currentTarget.innerHeight);
     });
+    // mouse controls
     this.canvas.addEventListener("mousedown", () => {
+      this.player.flap();
+    });
+    // keyboard controls
+    window.addEventListener("keydown", (e) => {
+      if (e.key === " " || e.key === "Enter") this.player.flap();
+    });
+    // touch controls
+    this.canvas.addEventListener("touchstart", () => {
       this.player.flap();
     });
   }
@@ -42,9 +55,15 @@ export class Game {
 
     this.ratio = this.height / this.baseHeight;
     this.gravity = 0.15 * this.ratio;
+
+    this.speed = 3;
+    this.background.resize();
     this.player.resize();
   }
   render() {
+    this.background.update();
+    this.background.draw();
+
     this.player.update();
     this.player.draw();
   }
