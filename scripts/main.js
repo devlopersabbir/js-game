@@ -6,6 +6,7 @@ export class Game {
    * @param {CanvasRenderingContext2D} context
    */
   constructor(canvas, context) {
+    /** @type {HTMLCanvasElement} */
     this.canvas = canvas;
     /** @type {CanvasRenderingContext2D} */
     this.ctx = context;
@@ -15,9 +16,24 @@ export class Game {
 
     /** @type {Player} */
     this.player = new Player(this);
+
+    // initinal resize with currenct window height and width
+    this.resize(window.innerWidth, window.innerHeight);
+
+    window.addEventListener("resize", (e) => {
+      this.resize(e.currentTarget.innerWidth, e.currentTarget.innerHeight);
+    });
+  }
+  resize(width, height) {
+    this.canvas.width = width;
+    this.canvas.height = height;
+
+    this.ctx.fillStyle = "red";
+
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
   }
   render() {
-    this.ctx.fillStyle = "red";
     this.player.update();
     this.player.draw();
   }
