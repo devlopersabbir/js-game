@@ -1,4 +1,10 @@
-class Player {
+import { Game } from "./main.js";
+
+export class Player {
+  /**
+   *
+   * @param {Game} game
+   */
   constructor(game) {
     this.game = game;
 
@@ -6,5 +12,11 @@ class Player {
     this.y = 0;
     this.width = 100;
     this.height = 100;
+  }
+  draw() {
+    this.game.ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+  update() {
+    this.x++;
   }
 }
