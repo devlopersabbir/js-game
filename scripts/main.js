@@ -27,6 +27,9 @@ export class Game {
     window.addEventListener("resize", (e) => {
       this.resize(e.currentTarget.innerWidth, e.currentTarget.innerHeight);
     });
+    this.canvas.addEventListener("mousedown", () => {
+      this.player.flap();
+    });
   }
   resize(width, height) {
     this.canvas.width = width;
