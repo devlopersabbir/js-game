@@ -14,6 +14,9 @@ export class Game {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
+    this.baseHeight = 720; /** which is default height of our game */
+    this.ratio = this.height / this.baseHeight; /** for example (720/1000) */
+
     /** @type {Player} */
     this.player = new Player(this);
 
@@ -32,6 +35,9 @@ export class Game {
 
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+
+    this.ratio = this.height / this.baseHeight;
+    this.player.resize();
   }
   render() {
     this.player.update();
