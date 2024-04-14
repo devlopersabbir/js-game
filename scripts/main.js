@@ -19,6 +19,7 @@ export class Game {
 
     /** @type {Player} */
     this.player = new Player(this);
+    this.gravity;
 
     // initinal resize with currenct window height and width
     this.resize(window.innerWidth, window.innerHeight);
@@ -37,6 +38,7 @@ export class Game {
     this.height = this.canvas.height;
 
     this.ratio = this.height / this.baseHeight;
+    this.gravity = 0.15 * this.ratio;
     this.player.resize();
   }
   render() {
